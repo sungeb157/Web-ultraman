@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +16,7 @@
             font-size: 2em;
             color: #ff4081;
             margin-top: 20vh;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             animation: fadeIn 2s ease-in-out;
         }
         @keyframes fadeIn {
@@ -26,33 +28,63 @@
             width: 30px;
             height: 30px;
             font-size: 24px;
-            animation: fall 3s linear infinite;
+            animation: fall 5s linear;
         }
         @keyframes fall {
             from { transform: translateY(-100px); }
             to { transform: translateY(100vh); }
         }
+        #musicButton {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            padding: 10px;
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <h1>🍚 NURUS JANGAN LUPA MADANG 🍽️</h1>
-    <audio autoplay loop>
+    
+    <button id="musicButton">🎵 Play Music</button>
+    <audio id="bgMusic" loop>
         <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
     </audio>
+
     <script>
+        let maxFood = 20;
         function createFood() {
+            if (document.querySelectorAll(".food").length >= maxFood) return;
+
             const foods = ['🍔', '🍕', '🍎', '🍚', '🥗', '🍩', '🍗'];
-            for (let i = 0; i < 20; i++) {
-                let food = document.createElement("div");
-                food.className = "food";
-                food.innerText = foods[Math.floor(Math.random() * foods.length)];
-                food.style.left = Math.random() * window.innerWidth + "px";
-                food.style.animationDuration = (Math.random() * 3 + 2) + "s";
-                document.body.appendChild(food);
-                setTimeout(() => food.remove(), 3000);
-            }
+            let food = document.createElement("div");
+            food.className = "food";
+            food.innerText = foods[Math.floor(Math.random() * foods.length)];
+            food.style.left = Math.random() * window.innerWidth + "px";
+            food.style.animationDuration = (Math.random() * 3 + 2) + "s";
+            document.body.appendChild(food);
+
+            setTimeout(() => food.remove(), 5000);
         }
-        setInterval(createFood, 500);
+        setInterval(createFood, 700);
+
+        // Play music button
+        let musicPlaying = false;
+        document.getElementById("musicButton").addEventListener("click", function() {
+            let audio = document.getElementById("bgMusic");
+            if (musicPlaying) {
+                audio.pause();
+                this.innerText = "🎵 Play Music";
+            } else {
+                audio.play();
+                this.innerText = "⏸️ Pause Music";
+            }
+            musicPlaying = !musicPlaying;
+        });
     </script>
 </body>
 </html>
