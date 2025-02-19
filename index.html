@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesan Romantis</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffebf0;
+            text-align: center;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 2em;
+            color: #ff4081;
+            margin-top: 20vh;
+            animation: fadeIn 2s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .food {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            font-size: 24px;
+            animation: fall 3s linear infinite;
+        }
+        @keyframes fall {
+            from { transform: translateY(-100px); }
+            to { transform: translateY(100vh); }
+        }
+    </style>
+</head>
+<body>
+    <h1>🍚 NURUS JANGAN LUPA MADANG 🍽️</h1>
+    <audio autoplay loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+    </audio>
+    <script>
+        function createFood() {
+            const foods = ['🍔', '🍕', '🍎', '🍚', '🥗', '🍩', '🍗'];
+            for (let i = 0; i < 20; i++) {
+                let food = document.createElement("div");
+                food.className = "food";
+                food.innerText = foods[Math.floor(Math.random() * foods.length)];
+                food.style.left = Math.random() * window.innerWidth + "px";
+                food.style.animationDuration = (Math.random() * 3 + 2) + "s";
+                document.body.appendChild(food);
+                setTimeout(() => food.remove(), 3000);
+            }
+        }
+        setInterval(createFood, 500);
+    </script>
+</body>
+</html>
